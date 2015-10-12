@@ -1,16 +1,8 @@
 <template name="layout">
-
-
-<div class="container">
-  <header class="navbar" role="navigation">
-    <div class="navbar-header">
-
-      <a href="{{pathFor 'postsList'}}">gEffects</a>
+  <div class="container">
+    {{> header}}
+    <div id="main">
+      {{> yield}}
     </div>
-  </header>
-  <div id="main">
-    {{> yield}}
   </div>
-</div>
-
 </template>
