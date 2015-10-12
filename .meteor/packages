@@ -16,14 +16,11 @@ standard-minifiers      # JS/CSS minifiers run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
-insecure                # Allow all DB writes from clients (for prototyping)
+standard-app-packages
 twbs:bootstrap
 underscore
-aldeed:collection2
-iron:router
+iron:router@1.0.0-rc.1
 sacha:spin
-
-service-configuration
-
-ian:accounts-ui-bootstrap-3
 accounts-password
+ian:accounts-ui-bootstrap-3
+audit-argument-checks
