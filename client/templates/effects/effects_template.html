@@ -1,9 +1,17 @@
 <template name="effectsTemplate">
-
-  <h2>Each of these buttons plays the same wav while you hold it down. The first one does not have a tuna filter</h2>
-     <button id="notuna">No Filter</button>
-     <button id="wahwah" class="wahwah">Wah-Wah</button>
-     <button id="phaser">Phaser</button>
-     <button id="tremolo">Tremolo</button>
-
+  <button id="wahwah" classs="effect" name="wahwah">Wah-Wah</button>
+  <button id="chorus" classs="effect" name="chorus">chorus</button>
+  <button id="overdrive" classs="effect" name="overdrive">overdrive</button>
+  <button id="delay" classs="effect" name="delay">delay</button>
+  <button id="phaser" classs="effect" name="phaser">phaser</button>
+  <button id="compressor" classs="effect" name="compressor">compressor</button>
+  <button id="tremolo" classs="effect" name="tremolo">tremolo</button>
+  <button id="bitcrusher" classs="effect" name="bitcrusher">bitcrusher</button>
+  <ul>
+      <li id="startRecording"><a href="#">Start Recording</a></li>
+      <li id="stopRecording"><a href="#">Stop Recording</a></li>
+      <li id="playBack"><a href="#">Play Recorded Sound</a></li>
+      <li id="upload"><a href="#">Upload</a></li>
+    </ul>
+    <p class="status"></p>
 </template>
