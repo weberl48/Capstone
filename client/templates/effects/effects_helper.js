@@ -1,6 +1,13 @@
 Template.effectsTemplate.onRendered(function() {
   var audioContext = new AudioContext();
   var audioInput = null;
+  var analyser
+  var analyserMethod = "getByteTimeDomainData";
+  var canvas = document.getElementById("visualizer");
+  var canvasContext = canvas.getContext("2d");
+  var canvasWidth = canvas.width;
+  var canvasHeight = canvas.height;
+  var dataArray;
   var tuna = new Tuna(audioContext);
   var currentEffects = [];
   console.log(audioContext);
@@ -99,7 +106,35 @@ Template.effectsTemplate.onRendered(function() {
 
   function gotStream(stream) {
     lineIn = audioContext.createMediaStreamSource(stream)
+    analyser = audioContext.createAnalyser();
+
     lineIn.connect(audioContext.destination)
+    lineIn.connect(analyser)
+
+    analyser.fftSize = 2048;
+    var bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+    canvasContext.lineWidth = 1;
+    canvasContext.strokeStyle = 'rgba(0, 0, 0, 1)';
+
+    function draw() {
+      console.log("draw started");
+      canvasContext.clearRect(0, 0, canvasWidth, canvasHeight);
+      requestAnimationFrame(draw);
+      analyser[analyserMethod](dataArray)
+      for (var i = 0; i < bufferLength; i++) {
+        canvasContext.beginPath();
+        canvasContext.moveTo(i, 255);
+        canvasContext.lineTo(i, 255 - dataArray[i]);
+        canvasContext.closePath();
+        canvasContext.stroke();
+      }
+
+    }
+
+
+
+
     document.getElementById('wahwah').addEventListener('mousedown', createWahWah)
     document.getElementById('chorus').addEventListener('mousedown', createChorus)
     document.getElementById('overdrive').addEventListener('mousedown', createOverdrive)
@@ -108,6 +143,7 @@ Template.effectsTemplate.onRendered(function() {
     document.getElementById('compressor').addEventListener('mousedown', createCompressor)
     document.getElementById('tremolo').addEventListener('mousedown', createTremolo)
     document.getElementById('bitcrusher').addEventListener('mousedown', createBitcrusher)
+  draw()
 
   }
 
@@ -192,6 +228,7 @@ Template.effectsTemplate.onRendered(function() {
       bufferSize: 4096 //256 to 16384
     })
   }
+
 
 
   initAudio()
